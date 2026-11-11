@@ -51,13 +51,38 @@ input{width:100%;max-width:300px;padding:12px 14px;border-radius:12px;border:2px
 #lb li:first-child{border-top:0}#lb li.me{color:var(--ok);font-weight:600}
 #lb .r{width:1.6rem;color:var(--muted)}#lb .n{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#lb .s{white-space:nowrap}
 @media (prefers-reduced-motion:reduce){.in{transition:none}.bar i{transition:none}.card.fog.open .f span{animation:none}}
+/* ---- colorful theme ---- */
+:root{--ink:#2b1055;--muted:#6a2c70;--face:#fffaf0;--line:#ffffff;--ok:#12a679;--bad:#e5173f;--bgimg:linear-gradient(160deg,#ffe29f 0%,#ffa99f 45%,#ff719a 100%)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--ink:#ffffff;--muted:#f0dcff;--face:#34166b;--line:#ffffff;--ok:#5ff0b8;--bad:#ff7a93;--bgimg:linear-gradient(160deg,#1f0a4d 0%,#6a1b9a 50%,#c2185b 100%)}}
+:root[data-theme="dark"]{--ink:#ffffff;--muted:#f0dcff;--face:#34166b;--line:#ffffff;--ok:#5ff0b8;--bad:#ff7a93;--bgimg:linear-gradient(160deg,#1f0a4d 0%,#6a1b9a 50%,#c2185b 100%)}
+body{background:var(--bgimg) fixed}
+h1{background:linear-gradient(90deg,#ff4d6d,#ff9f1c,#06d6a0,#4cc9f0,#8338ec);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:600;filter:drop-shadow(0 1px 0 rgba(255,255,255,.6))}
+.card:nth-child(6n+1){--c:#ff4d6d}.card:nth-child(6n+2){--c:#ff9f1c}.card:nth-child(6n+3){--c:#06b6a4}.card:nth-child(6n+4){--c:#2aa8e6}.card:nth-child(6n+5){--c:#8338ec}.card:nth-child(6n){--c:#43b86a}
+.b{background:repeating-linear-gradient(45deg,var(--c) 0 8px,color-mix(in srgb,var(--c) 65%,white) 8px 16px);border:3px solid #fff;box-shadow:0 3px 8px rgba(43,16,85,.25)}
+.card .f{background:#fffdf5;border:3px solid var(--c)}
+.card.done .f{border-color:var(--ok);box-shadow:0 0 0 2px var(--ok) inset,0 0 14px #72efdd}
+.card.curse.done .f{border-color:var(--bad);box-shadow:0 0 0 2px var(--bad) inset,0 0 14px #ff9aa8}
+.card.miss .f{border-color:var(--bad);box-shadow:0 0 0 2px var(--bad) inset}
+.stat{border:0;box-shadow:0 3px 8px rgba(43,16,85,.2);color:#2b1055}.stat span{color:#4a2a70}
+.stat:nth-child(1){background:#ffd60a}.stat:nth-child(2){background:#72efdd}
+.stat.low{background:#ff8fa3}.stat.low b{color:#8b0020}
+.bar{background:rgba(255,255,255,.55)}.bar i{background:linear-gradient(90deg,#06d6a0,#ffd60a)}
+button.main{background:linear-gradient(135deg,#ff4d6d,#ff9f1c);color:#fff;box-shadow:0 4px 12px rgba(229,23,63,.35)}
+button.main:nth-of-type(2){background:linear-gradient(135deg,#8338ec,#4cc9f0);box-shadow:0 4px 12px rgba(131,56,236,.35)}
+input{border:3px solid #ff9f1c;background:#fffdf5;color:#2b1055}
+.chip{border:0;color:#2b1055;font-weight:600}
+.chip:nth-child(4n+1){background:#ffd60a}.chip:nth-child(4n+2){background:#72efdd}.chip:nth-child(4n+3){background:#ffb3c6}.chip:nth-child(4n){background:#b8c0ff}
+#lb{border:0;box-shadow:0 4px 14px rgba(43,16,85,.2)}
+#lb li{border-top-color:rgba(128,100,160,.3)}
+#lb li:nth-child(1) .r::before{content:"🥇"}#lb li:nth-child(2) .r::before{content:"🥈"}#lb li:nth-child(3) .r::before{content:"🥉"}
+#lb li:nth-child(-n+3) .r{font-size:0;width:1.8rem}#lb li:nth-child(-n+3) .r::before{font-size:1.1rem}
 </style>
 </head>
 <body>
 <main>
   <section id="home">
     <h1>จับคู่ 10 ด่าน</h1>
-    <p class="sub">ผ่านด่านให้ได้มากที่สุดเพื่อขึ้นกระดานอันดับ ยิ่งเหลือเวลาและหัวใจมาก คะแนนยิ่งสูง</p>
+    <p class="sub">ผ่านด่านให้ได้มากที่สุดเพื่อขึ้นกระดานอันดับ ยิ่งเหลือเวลามาก คะแนนยิ่งสูง</p>
     <input id="name" maxlength="16" placeholder="ใส่ชื่อผู้เล่น" aria-label="ชื่อผู้เล่น" autocomplete="off">
     <p class="note">ชื่อจะแสดงให้ผู้เล่นคนอื่นเห็น อย่าใส่ข้อมูลส่วนตัว</p>
     <button class="main" id="go">เริ่มเกม</button>
@@ -74,7 +99,6 @@ input{width:100%;max-width:300px;padding:12px 14px;border-radius:12px;border:2px
     <div id="hud">
       <div class="stats">
         <div class="stat" id="tstat"><b id="time"></b><span>วินาที</span></div>
-        <div class="stat"><b id="hearts"></b><span>หัวใจ</span></div>
         <div class="stat"><b id="pairs"></b><span>จับคู่แล้ว</span></div>
       </div>
       <div class="bar" id="bar"><i id="fill"></i></div>
@@ -100,16 +124,16 @@ input{width:100%;max-width:300px;padding:12px 14px;border-radius:12px;border:2px
 const $=id=>document.getElementById(id);
 const POOL=["🐱","🐶","🦊","🐼","🐸","🐙","🦋","🐢","🍎","🍉","🍇","🍋","🚀","🎈","🎲","🔔","🌵","⚽"],DECOY=["🐭","🍏","🎯"];
 const LV=[
- {n:"อุ่นเครื่อง",p:6,t:0,h:0,flash:5},
- {n:"นาฬิกาเดิน",p:8,t:80,h:0},
- {n:"หัวใจ 5 ดวง",p:10,t:90,h:5},
- {n:"ไพ่ลวง",p:9,d:2,t:90,h:5},
- {n:"บอส: เวลาบีบ",p:12,t:60,h:3,boss:1},
- {n:"หมอกหนา",p:12,t:90,h:4,fog:6},
- {n:"ไพ่คำสาป",p:14,c:2,t:100,h:4},
- {n:"มืดบอด",p:15,t:100,h:4,blind:1},
- {n:"ทุกอย่างรวมกัน",p:17,d:2,t:110,h:4,fog:6,flash:3},
- {n:"บอสสุดท้าย: ด่านมหาโหด",p:17,c:2,t:45,h:2,fog:6,flash:4,boss:1}
+ {n:"อุ่นเครื่อง",p:6,t:0,flash:5},
+ {n:"นาฬิกาเดิน",p:8,t:80},
+ {n:"เร่งมือ",p:10,t:90},
+ {n:"ไพ่ลวง",p:9,d:2,t:90},
+ {n:"บอส: เวลาบีบ",p:12,t:60,boss:1},
+ {n:"หมอกหนา",p:12,t:90,fog:6},
+ {n:"ไพ่คำสาป",p:14,c:2,t:100},
+ {n:"มืดบอด",p:15,t:100,blind:1},
+ {n:"ทุกอย่างรวมกัน",p:17,d:2,t:110,fog:6,flash:3},
+ {n:"บอสสุดท้าย: ด่านมหาโหด",p:17,c:2,t:45,fog:6,flash:4,boss:1}
 ];
 let name="",lv=0,run=0,cleared=0,L,hearts,left,matched,first,lock,timer,started,over;
 let db=null,uid=null;
@@ -154,12 +178,12 @@ async function submit(){
 
 /* ---------- game ---------- */
 function chipsFor(c){
-  const a=[c.p*2+(c.d||0)+(c.c||0)+" ใบ",c.t?"เวลา "+c.t+" วินาที":"ไม่จำกัดเวลา",c.h?"หัวใจ "+c.h+" ดวง":"ไม่มีหัวใจ (ผิดเสีย 3 วินาที)"];
+  const a=[c.p*2+(c.d||0)+(c.c||0)+" ใบ",c.t?"เวลา "+c.t+" วินาที":"ไม่จำกัดเวลา","เปิดผิดไม่เสียอะไร"];
   if(c.flash)a.push("ดูไพ่ "+c.flash+" วินาที แล้วคว่ำ");
   if(c.d)a.push("ไพ่ลวง "+c.d+" ใบไม่มีคู่");
   if(c.fog)a.push("หมอกบังไพ่ "+c.fog+" ใบ");
   if(c.c)a.push("ไพ่คำสาป "+c.c+" ใบ");
-  if(c.blind)a.push("ซ่อนเวลาและหัวใจ");
+  if(c.blind)a.push("ซ่อนตัวเลขเวลา");
   return a;
 }
 function intro(){
@@ -172,7 +196,6 @@ function intro(){
 }
 function paint(){
   $("time").textContent=L.t?Math.max(0,left):"∞";
-  $("hearts").textContent=L.h?"❤️".repeat(Math.max(0,hearts)):"-";
   $("pairs").textContent=matched+"/"+L.p;
   const low=L.t&&left<=15;
   $("tstat").classList.toggle("low",!!low);$("bar").classList.toggle("low",!!low);
@@ -217,11 +240,7 @@ function begin(){
   }else lock=false;
 }
 function tick(){left--;paint();if(left<=0)fail("หมดเวลา")}
-function hurt(){
-  if(L.h){hearts--;paint();if(hearts<=0){fail("หัวใจหมด");return true}}
-  else if(L.t){left-=3;paint();if(left<=0){fail("หมดเวลา");return true}}
-  return false;
-}
+function hurt(){return false}
 function flip(c){
   if(lock||over||c.classList.contains("open")||c.classList.contains("done"))return;
   if(!started){started=true;if(L.t)timer=setInterval(tick,1000)}
@@ -245,14 +264,14 @@ function flip(c){
 function curse(c){
   lock=true;const e=Math.floor(Math.random()*3);
   let hold=900;
-  if(e===0){say("คำสาป! เสียหัวใจ 1 ดวง","bad");if(L.h){hearts--;paint();if(hearts<=0){return fail("หัวใจหมด")}}else{left-=5;paint()}}
+  if(e===0){say("คำสาป! เสียเวลา 8 วินาที","bad");left-=8;paint();if(L.t&&left<=0)return fail("หมดเวลา")}
   else if(e===1){say("คำสาป! เสียเวลา 5 วินาที","bad");left-=5;paint();if(L.t&&left<=0)return fail("หมดเวลา")}
   else{say("คำสาป! กระดานถูกล็อก 2 วินาที","bad");hold=2000}
   setTimeout(()=>{c.classList.remove("open");c.classList.add("done");if(!over){lock=false;say("")}},hold);
 }
 function clear(){
   clearInterval(timer);over=true;lock=true;cleared=lv+1;
-  const gain=(lv+1)*100+(L.t?Math.max(0,left)*3:0)+(L.h?Math.max(0,hearts)*30:0);
+  const gain=(lv+1)*100+(L.t?Math.max(0,left)*3:0);
   run+=gain;
   const last=lv===LV.length-1;
   $("rt").textContent=last?"🏆 ผ่านครบทุกด่าน!":"ผ่านด่าน "+(lv+1)+"!";
